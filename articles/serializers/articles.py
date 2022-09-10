@@ -5,8 +5,8 @@ from articles.models import Article, ArticleFile
 
 class ArticleFileAllSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ArticleFile,
-        fields = '__all__'
+        model = ArticleFile
+        fields = 'id', 'name', 'article', 'file',
 
 
 class ArticleFileForArticleListSerializer(serializers.ModelSerializer):
@@ -24,17 +24,17 @@ class ArticleAllSerializer(serializers.ModelSerializer):
 
 
 class ArticleListSerializer(serializers.ModelSerializer):
-    files = serializers.SerializerMethodField('get_files')
-
-    def get_files(self, instance):
-        if instance.files is not None:
-            files = instance.files.all()
-            res = [ArticleFileAllSerializer(files, many=True).data]
-            for file in files:
-                res.append(ArticleFileAllSerializer(file).data)
-            return res
-        else:
-            return []
+    # files = serializers.SerializerMethodField('get_files')
+    #
+    # def get_files(self, instance):
+    #     if instance.files is not None:
+    #         files = instance.files.all()
+    #         res = [ArticleFileAllSerializer(files, many=True).data]
+    #         for file in files:
+    #             res.append(ArticleFileAllSerializer(file).data)
+    #         return res
+    #     else:
+    #         return []
 
     class Meta:
         model = Article

@@ -1,1 +1,4 @@
-from .article import ArticleViewSet
+from .articles import (
+    ArticleViewSet,
+    ArticleFileViewSet
+)

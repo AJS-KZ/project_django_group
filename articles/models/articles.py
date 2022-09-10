@@ -1,6 +1,10 @@
 from django.db import models
 
-from utils.consts import ArticleChoice
+
+class ArticleChoice(models.TextChoices):
+    NEWS = 'news', 'Новости'
+    COMMERCIAL = 'commercial', 'Коммерческая'
+    BLOG = 'blog', 'Блог'
 
 
 class Article(models.Model):
@@ -10,9 +14,14 @@ class Article(models.Model):
     )
     type = models.CharField(
         choices=ArticleChoice.choices,
-        default=ArticleChoice.NEWS.value,
+        default=ArticleChoice.COMMERCIAL.value,
         max_length=255,
         verbose_name='Тип/Вид'
+    )
+    text = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name='Текст'
     )
 
     class Meta:
@@ -26,6 +35,12 @@ class ArticleFile(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Статья',
         related_name='files'
+    )
+    name = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name='NAME'
     )
     file = models.FileField(
         upload_to='articles_files/',

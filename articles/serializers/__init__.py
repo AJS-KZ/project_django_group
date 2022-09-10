@@ -1,4 +1,4 @@
-from .artilce import (
+from .articles import (
     ArticleAllSerializer,
     ArticleFileAllSerializer,
     ArticleListSerializer,
